@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Ratio Colors</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        canvas {
+            border: 1px solid black;
+            display: block;
+            margin-top: 10px;
+        }
+        input {
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <label for="num1">Число 1:</label>
+        <input type="number" id="num1" value="1">
+        <label for="num2">Число 2:</label>
+        <input type="number" id="num2" value="1">
+        <button onclick="drawCanvas()">Залить канвас</button>
+        <canvas id="canvas" width="600" height="600"></canvas>
+    </div>
+    
+    <script>
+        function drawCanvas() {
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+            const total = num1 + num2;
+            
+            if (total <= 0) {
+                alert("Числа должны быть положительными!");
+                return;
+            }
+            
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const squareSize = Math.sqrt((num1 / total) * (canvas.width * canvas.height));
+            
+            ctx.fillStyle = 'yellow';
+            ctx.fillRect(0, 0, squareSize, squareSize);
+            
+            ctx.fillStyle = 'blue';
+            ctx.fillRect(0, squareSize, canvas.width, canvas.height - squareSize);
+            ctx.fillRect(squareSize, 0, canvas.width - squareSize, canvas.height);
+        }
+    </script>
+</body>
+</html>
